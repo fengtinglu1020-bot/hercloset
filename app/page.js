@@ -26,133 +26,141 @@ export default function Home() {
         background: "#F6F3EE",
         minHeight: "100vh",
         color: "#111",
-        position: "relative",
       }}
     >
-      <div
+      <nav
         style={{
-          position: "fixed",
-          inset: 0,
-          display: "grid",
-          gridTemplateColumns: "repeat(10, 1fr)",
-          gap: 10,
-          padding: 20,
-          zIndex: 0,
-          overflow: "hidden",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "24px 40px",
+          background: "#F6F3EE",
+          borderBottom: "1px solid #E7E0D6",
+          position: "sticky",
+          top: 0,
+          zIndex: 20,
         }}
       >
-        {columns.map((bg, i) => (
-          <div
-            key={i}
-            style={{
-              borderRadius: 28,
-              background: bg,
-              position: "relative",
-              overflow: "hidden",
-              opacity: 0.95,
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                left: "14%",
-                right: "14%",
-                top: "10%",
-                height: "58%",
-                borderRadius: 999,
-                background: "rgba(255,248,242,0.35)",
-              }}
-            />
-          </div>
-        ))}
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          height: "100vh",
-          background: "linear-gradient(to right, rgba(246,243,238,0.9) 0%, rgba(246,243,238,0.6) 40%, rgba(246,243,238,0.2) 70%, transparent 100%)",
-          backdropFilter: "blur(16px)",
-          zIndex: 1,
-        }}
-      />
-
-      <div style={{ position: "relative", zIndex: 2 }}>
-        <nav
+        <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "24px 40px",
-            background: "rgba(246,243,238,0.55)",
-            borderBottom: "1px solid rgba(231,224,214,0.8)",
-            backdropFilter: "blur(8px)",
+            fontSize: 34,
+            fontWeight: 600,
+            fontFamily: "Georgia, serif",
           }}
         >
-          <div
-            style={{
-              fontSize: 34,
-              fontWeight: 600,
-              fontFamily: "Georgia, serif",
-            }}
-          >
-            HerCloset
-          </div>
+          HerCloset
+        </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: 28,
-              color: "#6E675F",
-              fontSize: 15,
-            }}
-          >
-            <span>Style</span>
-            <span>Scene</span>
-            <span>Season</span>
-          </div>
-
-          <div style={{ display: "flex", gap: 12 }}>
-            <a
-              href="/browse"
-              style={{
-                textDecoration: "none",
-                color: "#111",
-                fontSize: 14,
-                padding: "10px 18px",
-                borderRadius: 999,
-                border: "1px solid #E7E0D6",
-                background: "rgba(255,255,255,0.82)",
-              }}
-            >
-              Browse
-            </a>
-
-            <a
-              href="/upload"
-              style={{
-                textDecoration: "none",
-                color: "#fff",
-                fontSize: 14,
-                padding: "10px 18px",
-                borderRadius: 999,
-                background: "#111",
-              }}
-            >
-              List Your Piece
-            </a>
-          </div>
-        </nav>
-
-        <section
+        <div
           style={{
-            minHeight: "calc(100vh - 90px)",
+            display: "flex",
+            gap: 28,
+            color: "#6E675F",
+            fontSize: 15,
+          }}
+        >
+          <span>Style</span>
+          <span>Scene</span>
+          <span>Season</span>
+        </div>
+
+        <div style={{ display: "flex", gap: 12 }}>
+          <a
+            href="/browse"
+            style={{
+              textDecoration: "none",
+              color: "#111",
+              fontSize: 14,
+              padding: "10px 18px",
+              borderRadius: 999,
+              border: "1px solid #E7E0D6",
+              background: "#fff",
+            }}
+          >
+            Browse
+          </a>
+
+          <a
+            href="/upload"
+            style={{
+              textDecoration: "none",
+              color: "#fff",
+              fontSize: 14,
+              padding: "10px 18px",
+              borderRadius: 999,
+              background: "#111",
+            }}
+          >
+            List Your Piece
+          </a>
+        </div>
+      </nav>
+
+      <section
+        style={{
+          minHeight: "calc(100vh - 89px)",
+          position: "relative",
+          overflow: "hidden",
+          background: "#F6F3EE",
+          padding: "32px 40px 40px",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "grid",
+            gridTemplateColumns: "repeat(10, 1fr)",
+            gap: 10,
+            padding: 20,
+            zIndex: 0,
+          }}
+        >
+          {columns.map((bg, i) => (
+            <div
+              key={i}
+              style={{
+                borderRadius: 28,
+                background: bg,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  left: "14%",
+                  right: "14%",
+                  top: "10%",
+                  height: "58%",
+                  borderRadius: 999,
+                  background: "rgba(255,248,242,0.35)",
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to right, rgba(246,243,238,0.94) 0%, rgba(246,243,238,0.82) 34%, rgba(246,243,238,0.40) 68%, rgba(246,243,238,0.18) 100%)",
+            backdropFilter: "blur(10px)",
+            zIndex: 1,
+          }}
+        />
+
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
             display: "grid",
             gridTemplateColumns: "0.95fr 1.05fr",
             alignItems: "center",
-            padding: "32px 40px 40px",
             gap: 24,
+            minHeight: "calc(100vh - 153px)",
           }}
         >
           <div style={{ maxWidth: 520 }}>
@@ -212,7 +220,7 @@ export default function Home() {
                   display: "inline-block",
                   padding: "14px 24px",
                   borderRadius: 999,
-                  background: "rgba(255,255,255,0.82)",
+                  background: "rgba(255,255,255,0.86)",
                   color: "#111",
                   fontSize: 15,
                   border: "1px solid #E7E0D6",
@@ -273,86 +281,86 @@ export default function Home() {
               for every kind of trip.
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section
+      <section
+        style={{
+          padding: "28px 40px 60px",
+          background: "#F6F3EE",
+        }}
+      >
+        <div
           style={{
-            padding: "28px 40px 60px",
-            position: "relative",
-            zIndex: 2,
+            background: "#F8F5EF",
+            border: "1px solid #E7E0D6",
+            borderRadius: 32,
+            padding: 24,
           }}
         >
           <div
             style={{
-              background: "rgba(248,245,239,0.82)",
-              border: "1px solid #E7E0D6",
-              borderRadius: 32,
-              padding: 24,
-              backdropFilter: "blur(10px)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "end",
+              marginBottom: 18,
             }}
           >
-            <div
+            <div>
+              <h2 style={{ fontSize: 30, margin: 0 }}>For You</h2>
+              <p style={{ margin: "6px 0 0", color: "#6E675F" }}>智能推荐</p>
+            </div>
+
+            <a
+              href="/browse"
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "end",
-                marginBottom: 18,
+                textDecoration: "none",
+                color: "#6E675F",
+                fontSize: 14,
               }}
             >
-              <div>
-                <h2 style={{ fontSize: 30, margin: 0 }}>For You</h2>
-                <p style={{ margin: "6px 0 0", color: "#6E675F" }}>智能推荐</p>
-              </div>
+              查看更多 →
+            </a>
+          </div>
 
-              <a
-                href="/browse"
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: 18,
+            }}
+          >
+            {products.map((item, i) => (
+              <div
+                key={item.name}
                 style={{
-                  textDecoration: "none",
-                  color: "#6E675F",
-                  fontSize: 14,
+                  background: "#fff",
+                  border: "1px solid #E7E0D6",
+                  borderRadius: 24,
+                  padding: 12,
                 }}
               >
-                查看更多 →
-              </a>
-            </div>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: 18,
-              }}
-            >
-              {products.map((item, i) => (
                 <div
-                  key={item.name}
                   style={{
-                    background: "rgba(255,255,255,0.86)",
-                    border: "1px solid #E7E0D6",
-                    borderRadius: 24,
-                    padding: 12,
+                    height: 280,
+                    borderRadius: 18,
+                    background: [
+                      "linear-gradient(180deg,#EEE2D6 0%, #F3E8DA 42%, #84B9CF 72%, #A9D8E8 100%)",
+                      "linear-gradient(180deg,#F0E8DE 0%, #F7EFE4 42%, #CBB8A7 72%, #E7D7C9 100%)",
+                      "linear-gradient(180deg,#F2E1D6 0%, #F7ECE3 42%, #A9D2E1 72%, #CBE3EF 100%)",
+                      "linear-gradient(180deg,#E9DDD0 0%, #F4EBDD 42%, #79ADC0 72%, #99D0E0 100%)",
+                    ][i],
                   }}
-                >
-                  <div
-                    style={{
-                      height: 280,
-                      borderRadius: 18,
-                      background: [
-                        "linear-gradient(180deg,#EEE2D6 0%, #F3E8DA 42%, #84B9CF 72%, #A9D8E8 100%)",
-                        "linear-gradient(180deg,#F0E8DE 0%, #F7EFE4 42%, #CBB8A7 72%, #E7D7C9 100%)",
-                        "linear-gradient(180deg,#F2E1D6 0%, #F7ECE3 42%, #A9D2E1 72%, #CBE3EF 100%)",
-                        "linear-gradient(180deg,#E9DDD0 0%, #F4EBDD 42%, #79ADC0 72%, #99D0E0 100%)",
-                      ][i],
-                    }}
-                  />
-                  <div style={{ marginTop: 12, fontWeight: 600 }}>{item.name}</div>
-                  <div style={{ marginTop: 6, color: "#6E675F", fontSize: 14 }}>{item.price}</div>
-                </div>
-              ))}
-            </div>
+                />
+                <div style={{ marginTop: 12, fontWeight: 600 }}>{item.name}</div>
+                <div style={{ marginTop: 6, color: "#6E675F", fontSize: 14 }}>{item.price}</div>
+              </div>
+            ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
+  );
+}
   );
 }
