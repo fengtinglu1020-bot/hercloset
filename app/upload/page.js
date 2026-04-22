@@ -51,6 +51,20 @@ export default function UploadPage() {
     outline: "none",
     boxSizing: "border-box",
   };
+  const handleSave = () => {
+    const newItem = {
+      title,
+      price: resalePrice,
+      styleTag,
+      sceneTag,
+      seasonTag,
+      description,
+      image: previewImages[0] || "",
+    };
+
+    localStorage.setItem("hercloset_latest_item", JSON.stringify(newItem));
+    alert("已保存到主页预览");
+  };
 
   return (
     <main
@@ -493,7 +507,8 @@ export default function UploadPage() {
                   保存草稿
                 </button>
 
-                <button
+               <button
+                  onClick={handleSave}
                   style={{
                     flex: 1.2,
                     height: 48,
@@ -505,7 +520,7 @@ export default function UploadPage() {
                     cursor: "pointer",
                   }}
                 >
-                  下一步
+                  保存并同步
                 </button>
               </div>
             </div>
