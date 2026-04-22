@@ -31,14 +31,14 @@ export default function Home() {
     >
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           inset: 0,
           display: "grid",
           gridTemplateColumns: "repeat(10, 1fr)",
           gap: 10,
           padding: 20,
-          height: "100vh",
           zIndex: 0,
+          overflow: "hidden",
         }}
       >
         {columns.map((bg, i) => (
