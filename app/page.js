@@ -12,24 +12,6 @@ export default function Home() {
     "linear-gradient(180deg,#E7DDD1 0%,#F4ECE0 30%,#D8C29C 75%,#A48B67 100%)",
   ];
 
-  const exploreCards = [
-    {
-      title: "Style",
-      desc: "French / Clean Girl / Y2K",
-      color: "#F2E2D8",
-    },
-    {
-      title: "Scene",
-      desc: "Beach / Citywalk / Brunch",
-      color: "#DDE8F3",
-    },
-    {
-      title: "Season",
-      desc: "Spring / Summer / Fall",
-      color: "#EEE8DE",
-    },
-  ];
-
   const products = [
     { name: "法式碎花吊带裙", price: "¥129" },
     { name: "白色泡泡袖连衣裙", price: "¥149" },
@@ -49,12 +31,13 @@ export default function Home() {
     >
       <div
         style={{
-          position: "fixed",
+          position: "absolute",
           inset: 0,
           display: "grid",
           gridTemplateColumns: "repeat(10, 1fr)",
           gap: 10,
           padding: 20,
+          height: "100vh",
           zIndex: 0,
         }}
       >
@@ -62,20 +45,35 @@ export default function Home() {
           <div
             key={i}
             style={{
-              borderRadius: 20,
+              borderRadius: 28,
               background: bg,
-              opacity: 0.45,
+              position: "relative",
+              overflow: "hidden",
+              opacity: 0.95,
             }}
-          />
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: "14%",
+                right: "14%",
+                top: "10%",
+                height: "58%",
+                borderRadius: 999,
+                background: "rgba(255,248,242,0.35)",
+              }}
+            />
+          </div>
         ))}
       </div>
 
       <div
         style={{
-          position: "fixed",
+          position: "absolute",
           inset: 0,
-          background: "rgba(246,243,238,0.78)",
-          backdropFilter: "blur(18px)",
+          height: "100vh",
+          background: "rgba(246,243,238,0.72)",
+          backdropFilter: "blur(16px)",
           zIndex: 1,
         }}
       />
@@ -87,12 +85,9 @@ export default function Home() {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "24px 40px",
-            borderBottom: "1px solid #E7E0D6",
-            background: "rgba(246,243,238,0.86)",
-            backdropFilter: "blur(10px)",
-            position: "sticky",
-            top: 0,
-            zIndex: 20,
+            background: "rgba(246,243,238,0.55)",
+            borderBottom: "1px solid rgba(231,224,214,0.8)",
+            backdropFilter: "blur(8px)",
           }}
         >
           <div
@@ -128,7 +123,7 @@ export default function Home() {
                 padding: "10px 18px",
                 borderRadius: 999,
                 border: "1px solid #E7E0D6",
-                background: "#fff",
+                background: "rgba(255,255,255,0.82)",
               }}
             >
               Browse
@@ -150,307 +145,211 @@ export default function Home() {
           </div>
         </nav>
 
-        <section style={{ padding: "48px 40px 32px" }}>
+        <section
+          style={{
+            minHeight: "calc(100vh - 90px)",
+            display: "grid",
+            gridTemplateColumns: "0.95fr 1.05fr",
+            alignItems: "center",
+            padding: "32px 40px 40px",
+            gap: 24,
+          }}
+        >
+          <div style={{ maxWidth: 520 }}>
+            <div
+              style={{
+                fontSize: 92,
+                lineHeight: 0.9,
+                letterSpacing: "-2px",
+                fontFamily: "Georgia, serif",
+                marginBottom: 28,
+              }}
+            >
+              Welcome
+              <br />
+              To
+              <br />
+              HerCloset
+            </div>
+
+            <div
+              style={{
+                display: "inline-block",
+                padding: "12px 28px",
+                borderRadius: 999,
+                border: "2px solid #DDE06B",
+                fontSize: 28,
+                fontStyle: "italic",
+                fontFamily: "Georgia, serif",
+                marginBottom: 28,
+                color: "#3E3A34",
+                background: "rgba(255,255,255,0.22)",
+              }}
+            >
+              for your next trip
+            </div>
+
+            <div style={{ display: "flex", gap: 14, marginTop: 8 }}>
+              <a
+                href="/browse"
+                style={{
+                  textDecoration: "none",
+                  display: "inline-block",
+                  padding: "14px 24px",
+                  borderRadius: 999,
+                  background: "#111",
+                  color: "#fff",
+                  fontSize: 15,
+                }}
+              >
+                Explore →
+              </a>
+
+              <a
+                href="/upload"
+                style={{
+                  textDecoration: "none",
+                  display: "inline-block",
+                  padding: "14px 24px",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.82)",
+                  color: "#111",
+                  fontSize: 15,
+                  border: "1px solid #E7E0D6",
+                }}
+              >
+                发布闲置
+              </a>
+            </div>
+          </div>
+
           <div
             style={{
-              border: "1px solid #E7E0D6",
-              borderRadius: 36,
-              overflow: "hidden",
-              padding: 24,
-              background: "rgba(248,245,239,0.55)",
-              backdropFilter: "blur(8px)",
+              textAlign: "center",
+              color: "white",
+              padding: "40px 20px",
             }}
           >
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns: "1.05fr 1fr",
+                display: "flex",
+                justifyContent: "center",
                 gap: 24,
-                alignItems: "center",
+                fontSize: 13,
+                marginBottom: 18,
+                letterSpacing: "0.18em",
               }}
             >
-              <div style={{ padding: "20px 12px" }}>
-                <div
-                  style={{
-                    fontSize: 84,
-                    lineHeight: 0.92,
-                    letterSpacing: "-2px",
-                    fontFamily: "Georgia, serif",
-                    marginBottom: 28,
-                  }}
-                >
-                  Welcome
-                  <br />
-                  To
-                  <br />
-                  HerCloset
-                </div>
+              <span>STYLE</span>
+              <span>SCENE</span>
+              <span>SEASON</span>
+              <span>CURATED</span>
+            </div>
 
-                <div
-                  style={{
-                    display: "inline-block",
-                    padding: "12px 28px",
-                    borderRadius: 999,
-                    border: "2px solid #DDE06B",
-                    fontSize: 28,
-                    fontStyle: "italic",
-                    fontFamily: "Georgia, serif",
-                    marginBottom: 28,
-                    color: "#3E3A34",
-                    background: "rgba(255,255,255,0.35)",
-                  }}
-                >
-                  for your next trip
-                </div>
+            <div
+              style={{
+                fontSize: 132,
+                lineHeight: 0.88,
+                fontWeight: 800,
+                letterSpacing: "-4px",
+                textTransform: "uppercase",
+                fontStyle: "italic",
+                marginBottom: 18,
+              }}
+            >
+              HerCloset
+            </div>
 
-                <div style={{ display: "flex", gap: 14, marginTop: 8 }}>
-                  <a
-                    href="/browse"
-                    style={{
-                      textDecoration: "none",
-                      display: "inline-block",
-                      padding: "14px 24px",
-                      borderRadius: 999,
-                      background: "#111",
-                      color: "#fff",
-                      fontSize: 15,
-                    }}
-                  >
-                    Explore →
-                  </a>
+            <p
+              style={{
+                fontSize: 22,
+                lineHeight: 1.7,
+                margin: 0,
+                color: "rgba(255,255,255,0.95)",
+              }}
+            >
+              Curated vacation outfits and second-hand pieces
+              <br />
+              for every kind of trip.
+            </p>
+          </div>
+        </section>
 
-                  <a
-                    href="/upload"
-                    style={{
-                      textDecoration: "none",
-                      display: "inline-block",
-                      padding: "14px 24px",
-                      borderRadius: 999,
-                      background: "#fff",
-                      color: "#111",
-                      fontSize: 15,
-                      border: "1px solid #E7E0D6",
-                    }}
-                  >
-                    发布闲置
-                  </a>
-                </div>
+        <section
+          style={{
+            padding: "28px 40px 60px",
+            position: "relative",
+            zIndex: 2,
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(248,245,239,0.82)",
+              border: "1px solid #E7E0D6",
+              borderRadius: 32,
+              padding: 24,
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "end",
+                marginBottom: 18,
+              }}
+            >
+              <div>
+                <h2 style={{ fontSize: 30, margin: 0 }}>For You</h2>
+                <p style={{ margin: "6px 0 0", color: "#6E675F" }}>智能推荐</p>
               </div>
 
-              <div
+              <a
+                href="/browse"
                 style={{
-                  position: "relative",
-                  minHeight: 560,
-                  borderRadius: 32,
-                  overflow: "hidden",
-                  background: "rgba(241,235,225,0.4)",
+                  textDecoration: "none",
+                  color: "#6E675F",
+                  fontSize: 14,
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "grid",
-                    gridTemplateColumns: "repeat(10, 1fr)",
-                    gap: 10,
-                    padding: 18,
-                  }}
-                >
-                  {columns.map((bg, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        borderRadius: 22,
-                        background: bg,
-                        position: "relative",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: "absolute",
-                          left: "14%",
-                          right: "14%",
-                          top: "10%",
-                          height: "58%",
-                          borderRadius: 999,
-                          background: "rgba(255,248,242,0.35)",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
+                查看更多 →
+              </a>
+            </div>
 
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                gap: 18,
+              }}
+            >
+              {products.map((item, i) => (
                 <div
+                  key={item.name}
                   style={{
-                    position: "relative",
-                    zIndex: 2,
-                    height: "100%",
-                    minHeight: 560,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: 30,
+                    background: "rgba(255,255,255,0.86)",
+                    border: "1px solid #E7E0D6",
+                    borderRadius: 24,
+                    padding: 12,
                   }}
                 >
                   <div
                     style={{
-                      textAlign: "center",
-                      color: "white",
-                      maxWidth: 760,
+                      height: 280,
+                      borderRadius: 18,
+                      background: [
+                        "linear-gradient(180deg,#EEE2D6 0%, #F3E8DA 42%, #84B9CF 72%, #A9D8E8 100%)",
+                        "linear-gradient(180deg,#F0E8DE 0%, #F7EFE4 42%, #CBB8A7 72%, #E7D7C9 100%)",
+                        "linear-gradient(180deg,#F2E1D6 0%, #F7ECE3 42%, #A9D2E1 72%, #CBE3EF 100%)",
+                        "linear-gradient(180deg,#E9DDD0 0%, #F4EBDD 42%, #79ADC0 72%, #99D0E0 100%)",
+                      ][i],
                     }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        gap: 24,
-                        fontSize: 13,
-                        marginBottom: 18,
-                        letterSpacing: "0.18em",
-                      }}
-                    >
-                      <span>STYLE</span>
-                      <span>SCENE</span>
-                      <span>SEASON</span>
-                      <span>CURATED</span>
-                    </div>
-
-                    <div
-                      style={{
-                        fontSize: 118,
-                        lineHeight: 0.9,
-                        fontWeight: 800,
-                        letterSpacing: "-3px",
-                        textTransform: "uppercase",
-                        fontStyle: "italic",
-                        marginBottom: 18,
-                      }}
-                    >
-                      HerCloset
-                    </div>
-
-                    <p
-                      style={{
-                        fontSize: 20,
-                        lineHeight: 1.7,
-                        margin: 0,
-                        color: "rgba(255,255,255,0.92)",
-                      }}
-                    >
-                      Curated vacation outfits and second-hand pieces
-                      <br />
-                      for every kind of trip.
-                    </p>
-                  </div>
+                  />
+                  <div style={{ marginTop: 12, fontWeight: 600 }}>{item.name}</div>
+                  <div style={{ marginTop: 6, color: "#6E675F", fontSize: 14 }}>{item.price}</div>
                 </div>
-              </div>
+              ))}
             </div>
-          </div>
-        </section>
-
-        <section style={{ padding: "0 40px 32px" }}>
-          <h2 style={{ fontSize: 22, marginBottom: 18 }}>Explore by</h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 18,
-            }}
-          >
-            {exploreCards.map((item) => (
-              <div
-                key={item.title}
-                style={{
-                  background: "rgba(255,255,255,0.72)",
-                  border: "1px solid #E7E0D6",
-                  borderRadius: 28,
-                  padding: 20,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
-                  backdropFilter: "blur(8px)",
-                }}
-              >
-                <div
-                  style={{
-                    width: 58,
-                    height: 58,
-                    borderRadius: 999,
-                    background: item.color,
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div style={{ fontWeight: 600, marginBottom: 4 }}>{item.title}</div>
-                  <div style={{ fontSize: 14, color: "#6E675F" }}>{item.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section style={{ padding: "0 40px 60px" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "end",
-              marginBottom: 18,
-            }}
-          >
-            <div>
-              <h2 style={{ fontSize: 30, margin: 0 }}>For You</h2>
-              <p style={{ margin: "6px 0 0", color: "#6E675F" }}>智能推荐</p>
-            </div>
-
-            <a
-              href="/browse"
-              style={{
-                textDecoration: "none",
-                color: "#6E675F",
-                fontSize: 14,
-              }}
-            >
-              查看更多 →
-            </a>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 18,
-            }}
-          >
-            {products.map((item, i) => (
-              <div
-                key={item.name}
-                style={{
-                  background: "rgba(255,255,255,0.72)",
-                  border: "1px solid #E7E0D6",
-                  borderRadius: 24,
-                  padding: 12,
-                  backdropFilter: "blur(8px)",
-                }}
-              >
-                <div
-                  style={{
-                    height: 280,
-                    borderRadius: 18,
-                    background: [
-                      "linear-gradient(180deg,#EEE2D6 0%, #F3E8DA 42%, #84B9CF 72%, #A9D8E8 100%)",
-                      "linear-gradient(180deg,#F0E8DE 0%, #F7EFE4 42%, #CBB8A7 72%, #E7D7C9 100%)",
-                      "linear-gradient(180deg,#F2E1D6 0%, #F7ECE3 42%, #A9D2E1 72%, #CBE3EF 100%)",
-                      "linear-gradient(180deg,#E9DDD0 0%, #F4EBDD 42%, #79ADC0 72%, #99D0E0 100%)",
-                    ][i],
-                  }}
-                />
-                <div style={{ marginTop: 12, fontWeight: 600 }}>{item.name}</div>
-                <div style={{ marginTop: 6, color: "#6E675F", fontSize: 14 }}>{item.price}</div>
-              </div>
-            ))}
           </div>
         </section>
       </div>
