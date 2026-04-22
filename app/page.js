@@ -72,7 +72,7 @@ export default function Home() {
           position: "absolute",
           inset: 0,
           height: "100vh",
-          background: "rgba(246,243,238,0.72)",
+          background: "linear-gradient(to right, rgba(246,243,238,0.9) 0%, rgba(246,243,238,0.6) 40%, rgba(246,243,238,0.2) 70%, transparent 100%)",
           backdropFilter: "blur(16px)",
           zIndex: 1,
         }}
