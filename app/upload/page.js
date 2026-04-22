@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function UploadPage() {
   const uploaded = [
     { label: "商品实拍图", color: "linear-gradient(180deg,#F3E6DA 0%, #E8D3C2 100%)" },
@@ -8,6 +10,46 @@ export default function UploadPage() {
   const styleTags = ["法式", "甜美", "辣妹", "Y2K", "Clean Girl", "Boho", "学院风"];
   const sceneTags = ["海边", "日常", "城市拍照", "度假酒店", "brunch", "公园", "沙滩", "约会"];
   const seasonTags = ["春天", "夏天", "秋天", "冬天", "四季皆宜"];
+
+  const sizeOptions = ["XS", "S", "M", "L", "XL"];
+  const wearOptions = ["全新未穿", "1次", "2-3次", "4-5次", "5次以上"];
+  const washOptions = ["未洗涤", "1次", "2次", "3次以上"];
+
+  const [title, setTitle] = useState("法式碎花吊带裙 / 夏日海边");
+  const [size, setSize] = useState("M");
+  const [wearCount, setWearCount] = useState("2-3次");
+  const [washCount, setWashCount] = useState("1次");
+  const [styleTag, setStyleTag] = useState("法式");
+  const [sceneTag, setSceneTag] = useState("海边");
+  const [seasonTag, setSeasonTag] = useState("夏天");
+  const [originalPrice, setOriginalPrice] = useState("299");
+  const [resalePrice, setResalePrice] = useState("128");
+  const [description, setDescription] = useState(
+    "法式碎花吊带裙，适合海边和度假场景，颜色温柔，上身很出片。布料轻薄，夏天穿很舒服。"
+  );
+
+  const chipStyle = (active) => ({
+    padding: "10px 14px",
+    borderRadius: 999,
+    border: active ? "1px solid #D5D85A" : "1px solid #DDD5CA",
+    background: active ? "#E8EC7A" : "#fff",
+    color: "#4D493F",
+    fontSize: 13,
+    cursor: "pointer",
+  });
+
+  const inputStyle = {
+    width: "100%",
+    height: 46,
+    borderRadius: 14,
+    border: "1px solid #DDD5CA",
+    background: "#FBF9F5",
+    padding: "0 14px",
+    color: "#4D493F",
+    fontSize: 14,
+    outline: "none",
+    boxSizing: "border-box",
+  };
 
   return (
     <main
@@ -249,20 +291,14 @@ export default function UploadPage() {
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>尺码 Size</div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                    {["XS", "S", "M", "L", "XL"].map((size) => (
-                      <div
-                        key={size}
-                        style={{
-                          padding: "10px 16px",
-                          borderRadius: 999,
-                          border: size === "M" ? "1px solid #111" : "1px solid #DDD5CA",
-                          background: size === "M" ? "#111" : "#fff",
-                          color: size === "M" ? "#fff" : "#6E675F",
-                          fontSize: 13,
-                        }}
+                    {sizeOptions.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => setSize(item)}
+                        style={chipStyle(item === size)}
                       >
-                        {size}
-                      </div>
+                        {item}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -270,20 +306,14 @@ export default function UploadPage() {
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>穿着次数</div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                    {["全新未穿", "1次", "2-3次", "4-5次", "5次以上"].map((wear) => (
-                      <div
-                        key={wear}
-                        style={{
-                          padding: "10px 16px",
-                          borderRadius: 999,
-                          border: wear === "2-3次" ? "1px solid #111" : "1px solid #DDD5CA",
-                          background: wear === "2-3次" ? "#111" : "#fff",
-                          color: wear === "2-3次" ? "#fff" : "#6E675F",
-                          fontSize: 13,
-                        }}
+                    {wearOptions.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => setWearCount(item)}
+                        style={chipStyle(item === wearCount)}
                       >
-                        {wear}
-                      </div>
+                        {item}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -293,41 +323,25 @@ export default function UploadPage() {
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>洗涤次数</div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                    {["未洗涤", "1次", "2次", "3次以上"].map((wash) => (
-                      <div
-                        key={wash}
-                        style={{
-                          padding: "10px 16px",
-                          borderRadius: 999,
-                          border: wash === "1次" ? "1px solid #111" : "1px solid #DDD5CA",
-                          background: wash === "1次" ? "#111" : "#fff",
-                          color: wash === "1次" ? "#fff" : "#6E675F",
-                          fontSize: 13,
-                        }}
+                    {washOptions.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => setWashCount(item)}
+                        style={chipStyle(item === washCount)}
                       >
-                        {wash}
-                      </div>
+                        {item}
+                      </button>
                     ))}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>商品标题</div>
-                  <div
-                    style={{
-                      height: 44,
-                      borderRadius: 14,
-                      border: "1px solid #DDD5CA",
-                      background: "#FBF9F5",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 14px",
-                      color: "#8B847B",
-                      fontSize: 14,
-                    }}
-                  >
-                    法式碎花吊带裙 / 夏日海边
-                  </div>
+                  <input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    style={inputStyle}
+                  />
                 </div>
               </div>
             </div>
@@ -349,19 +363,13 @@ export default function UploadPage() {
                 <div style={{ fontSize: 14, marginBottom: 10 }}>风格 Style</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {styleTags.map((tag) => (
-                    <div
+                    <button
                       key={tag}
-                      style={{
-                        padding: "10px 14px",
-                        borderRadius: 999,
-                        border: tag === "法式" ? "1px solid #D5D85A" : "1px solid #DDD5CA",
-                        background: tag === "法式" ? "#E8EC7A" : "#fff",
-                        color: "#4D493F",
-                        fontSize: 13,
-                      }}
+                      onClick={() => setStyleTag(tag)}
+                      style={chipStyle(tag === styleTag)}
                     >
                       {tag}
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -370,19 +378,13 @@ export default function UploadPage() {
                 <div style={{ fontSize: 14, marginBottom: 10 }}>出片场景 Scene</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {sceneTags.map((tag) => (
-                    <div
+                    <button
                       key={tag}
-                      style={{
-                        padding: "10px 14px",
-                        borderRadius: 999,
-                        border: tag === "海边" ? "1px solid #D5D85A" : "1px solid #DDD5CA",
-                        background: tag === "海边" ? "#E8EC7A" : "#fff",
-                        color: "#4D493F",
-                        fontSize: 13,
-                      }}
+                      onClick={() => setSceneTag(tag)}
+                      style={chipStyle(tag === sceneTag)}
                     >
                       {tag}
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -391,19 +393,13 @@ export default function UploadPage() {
                 <div style={{ fontSize: 14, marginBottom: 10 }}>季节 Season</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {seasonTags.map((tag) => (
-                    <div
+                    <button
                       key={tag}
-                      style={{
-                        padding: "10px 14px",
-                        borderRadius: 999,
-                        border: tag === "夏天" ? "1px solid #D5D85A" : "1px solid #DDD5CA",
-                        background: tag === "夏天" ? "#E8EC7A" : "#fff",
-                        color: "#4D493F",
-                        fontSize: 13,
-                      }}
+                      onClick={() => setSeasonTag(tag)}
+                      style={chipStyle(tag === seasonTag)}
                     >
                       {tag}
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -425,38 +421,20 @@ export default function UploadPage() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>原价</div>
-                  <div
-                    style={{
-                      height: 46,
-                      borderRadius: 14,
-                      border: "1px solid #DDD5CA",
-                      background: "#FBF9F5",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 14px",
-                      color: "#4D493F",
-                    }}
-                  >
-                    ¥299
-                  </div>
+                  <input
+                    value={originalPrice}
+                    onChange={(e) => setOriginalPrice(e.target.value)}
+                    style={inputStyle}
+                  />
                 </div>
 
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>转卖价</div>
-                  <div
-                    style={{
-                      height: 46,
-                      borderRadius: 14,
-                      border: "1px solid #DDD5CA",
-                      background: "#FBF9F5",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 14px",
-                      color: "#4D493F",
-                    }}
-                  >
-                    ¥128
-                  </div>
+                  <input
+                    value={resalePrice}
+                    onChange={(e) => setResalePrice(e.target.value)}
+                    style={inputStyle}
+                  />
                 </div>
               </div>
             </div>
@@ -473,20 +451,24 @@ export default function UploadPage() {
                 5. 其他信息
               </div>
 
-              <div
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 style={{
+                  width: "100%",
                   minHeight: 120,
                   borderRadius: 18,
                   border: "1px solid #DDD5CA",
                   background: "#FBF9F5",
                   padding: 14,
-                  color: "#8B847B",
+                  color: "#4D493F",
                   fontSize: 14,
                   lineHeight: 1.7,
+                  outline: "none",
+                  boxSizing: "border-box",
+                  resize: "vertical",
                 }}
-              >
-                描述一下商品的细节、材质、搭配建议、购买渠道等…
-              </div>
+              />
 
               <div
                 style={{
@@ -504,6 +486,7 @@ export default function UploadPage() {
                     border: "1px solid #DDD5CA",
                     background: "#fff",
                     fontSize: 15,
+                    cursor: "pointer",
                   }}
                 >
                   保存草稿
@@ -518,6 +501,7 @@ export default function UploadPage() {
                     background: "#111",
                     color: "#fff",
                     fontSize: 15,
+                    cursor: "pointer",
                   }}
                 >
                   下一步
@@ -563,10 +547,10 @@ export default function UploadPage() {
                 />
 
                 <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
-                  法式碎花吊带裙
+                  {title}
                 </div>
 
-                <div style={{ color: "#6E675F", marginBottom: 14 }}>¥128</div>
+                <div style={{ color: "#6E675F", marginBottom: 14 }}>¥{resalePrice}</div>
 
                 <div
                   style={{
@@ -576,7 +560,7 @@ export default function UploadPage() {
                     marginBottom: 16,
                   }}
                 >
-                  {["法式", "海边", "夏天", "2-3次穿着"].map((tag) => (
+                  {[styleTag, sceneTag, seasonTag, wearCount].map((tag) => (
                     <div
                       key={tag}
                       style={{
@@ -594,6 +578,28 @@ export default function UploadPage() {
 
                 <div
                   style={{
+                    fontSize: 13,
+                    color: "#6E675F",
+                    lineHeight: 1.7,
+                    marginBottom: 16,
+                  }}
+                >
+                  尺码：{size} ｜ 洗涤次数：{washCount} ｜ 原价：¥{originalPrice}
+                </div>
+
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: "#4D493F",
+                    lineHeight: 1.7,
+                    marginBottom: 18,
+                  }}
+                >
+                  {description}
+                </div>
+
+                <div
+                  style={{
                     display: "flex",
                     gap: 10,
                   }}
@@ -605,6 +611,7 @@ export default function UploadPage() {
                       borderRadius: 999,
                       border: "1px solid #DDD5CA",
                       background: "#fff",
+                      cursor: "pointer",
                     }}
                   >
                     收藏
@@ -617,6 +624,7 @@ export default function UploadPage() {
                       border: "none",
                       background: "#111",
                       color: "#fff",
+                      cursor: "pointer",
                     }}
                   >
                     立即购买
