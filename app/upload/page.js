@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
-  const uploaded = [
+  const router = useRouter();
+
+  const uploadedHints = [
     { label: "商品实拍图", color: "linear-gradient(180deg,#F3E6DA 0%, #E8D3C2 100%)" },
     { label: "细节图", color: "linear-gradient(180deg,#EEDFD1 0%, #D9C2AE 100%)" },
     { label: "上身参考图", color: "linear-gradient(180deg,#E6E6E0 0%, #CFCFC6 100%)" },
@@ -11,7 +14,6 @@ export default function UploadPage() {
   const styleTags = ["法式", "甜美", "辣妹", "Y2K", "Clean Girl", "Boho", "学院风"];
   const sceneTags = ["海边", "日常", "城市拍照", "度假酒店", "brunch", "公园", "沙滩", "约会"];
   const seasonTags = ["春天", "夏天", "秋天", "冬天", "四季皆宜"];
-
   const sizeOptions = ["XS", "S", "M", "L", "XL"];
   const wearOptions = ["全新未穿", "1次", "2-3次", "4-5次", "5次以上"];
   const washOptions = ["未洗涤", "1次", "2次", "3次以上"];
@@ -28,6 +30,7 @@ export default function UploadPage() {
   const [description, setDescription] = useState(
     "法式碎花吊带裙，适合海边和度假场景，颜色温柔，上身很出片。布料轻薄，夏天穿很舒服。"
   );
+  const [previewImages, setPreviewImages] = useState([]);
 
   const chipStyle = (active) => ({
     padding: "10px 14px",
@@ -51,19 +54,44 @@ export default function UploadPage() {
     outline: "none",
     boxSizing: "border-box",
   };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+
+    const readers = files.map(
+      (file) =>
+        new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(file);
+        })
+    );
+
+    Promise.all(readers).then((results) => {
+      setPreviewImages(results.slice(0, 4));
+    });
+  };
+
   const handleSave = () => {
     const newItem = {
       title,
       price: resalePrice,
+      originalPrice,
+      size,
+      wearCount,
+      washCount,
       styleTag,
       sceneTag,
       seasonTag,
       description,
       image: previewImages[0] || "",
+      createdAt: Date.now(),
     };
 
     localStorage.setItem("hercloset_latest_item", JSON.stringify(newItem));
-    alert("已保存到主页预览");
+    alert("已保存并同步到首页");
+    router.push("/");
   };
 
   return (
@@ -133,11 +161,7 @@ export default function UploadPage() {
         </div>
       </nav>
 
-      <section
-        style={{
-          padding: "28px 32px 40px",
-        }}
-      >
+      <section style={{ padding: "28px 32px 40px" }}>
         <div
           style={{
             display: "grid",
@@ -163,15 +187,7 @@ export default function UploadPage() {
               }}
             >
               <div>
-                <div
-                  style={{
-                    fontSize: 34,
-                    fontWeight: 700,
-                    marginBottom: 6,
-                  }}
-                >
-                  发布闲置
-                </div>
+                <div style={{ fontSize: 34, fontWeight: 700, marginBottom: 6 }}>发布闲置</div>
                 <div style={{ color: "#6E675F", fontSize: 15 }}>
                   把只穿过一次的漂亮衣服，继续去下一个海边
                 </div>
@@ -187,14 +203,7 @@ export default function UploadPage() {
                 }}
               >
                 {["1", "2", "3", "4", "5"].map((step, i) => (
-                  <div
-                    key={step}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                    }}
-                  >
+                  <div key={step} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div
                       style={{
                         width: 28,
@@ -210,15 +219,7 @@ export default function UploadPage() {
                     >
                       {step}
                     </div>
-                    {i !== 4 && (
-                      <div
-                        style={{
-                          width: 26,
-                          height: 1,
-                          background: "#DDD5CA",
-                        }}
-                      />
-                    )}
+                    {i !== 4 && <div style={{ width: 26, height: 1, background: "#DDD5CA" }} />}
                   </div>
                 ))}
               </div>
@@ -233,12 +234,9 @@ export default function UploadPage() {
                 marginBottom: 18,
               }}
             >
-              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>
-                1. 上传图片
-              </div>
-
+              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>1. 上传图片</div>
               <div style={{ marginBottom: 14, color: "#6E675F", fontSize: 14 }}>
-                至少上传 1–3 张商品实拍图，建议再补充细节图和上身参考图
+                至少上传 1 张商品实拍图，建议再补充细节图和上身参考图
               </div>
 
               <div
@@ -248,13 +246,16 @@ export default function UploadPage() {
                   gap: 14,
                 }}
               >
-                {uploaded.map((item) => (
-                  <div key={item.label}>
-                    <div
+                {previewImages.map((src, index) => (
+                  <div key={index}>
+                    <img
+                      src={src}
+                      alt={`upload-${index}`}
                       style={{
+                        width: "100%",
                         height: 156,
+                        objectFit: "cover",
                         borderRadius: 20,
-                        background: item.color,
                         border: "1px solid #E7E0D6",
                       }}
                     />
@@ -266,12 +267,36 @@ export default function UploadPage() {
                         textAlign: "center",
                       }}
                     >
-                      {item.label}
+                      已上传
                     </div>
                   </div>
                 ))}
 
-                <div
+                {previewImages.length === 0 &&
+                  uploadedHints.slice(0, 3).map((item) => (
+                    <div key={item.label}>
+                      <div
+                        style={{
+                          height: 156,
+                          borderRadius: 20,
+                          background: item.color,
+                          border: "1px solid #E7E0D6",
+                        }}
+                      />
+                      <div
+                        style={{
+                          marginTop: 8,
+                          fontSize: 13,
+                          color: "#6E675F",
+                          textAlign: "center",
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                    </div>
+                  ))}
+
+                <label
                   style={{
                     height: 156,
                     borderRadius: 20,
@@ -282,10 +307,18 @@ export default function UploadPage() {
                     justifyContent: "center",
                     color: "#8B847B",
                     fontSize: 28,
+                    cursor: "pointer",
                   }}
                 >
                   +
-                </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageUpload}
+                    style={{ display: "none" }}
+                  />
+                </label>
               </div>
             </div>
 
@@ -298,20 +331,14 @@ export default function UploadPage() {
                 marginBottom: 18,
               }}
             >
-              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>
-                2. 商品信息
-              </div>
+              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>2. 商品信息</div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>尺码 Size</div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {sizeOptions.map((item) => (
-                      <button
-                        key={item}
-                        onClick={() => setSize(item)}
-                        style={chipStyle(item === size)}
-                      >
+                      <button key={item} onClick={() => setSize(item)} style={chipStyle(item === size)}>
                         {item}
                       </button>
                     ))}
@@ -352,11 +379,7 @@ export default function UploadPage() {
 
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>商品标题</div>
-                  <input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    style={inputStyle}
-                  />
+                  <input value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
                 </div>
               </div>
             </div>
@@ -370,19 +393,13 @@ export default function UploadPage() {
                 marginBottom: 18,
               }}
             >
-              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>
-                3. 分类标签
-              </div>
+              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>3. 分类标签</div>
 
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 14, marginBottom: 10 }}>风格 Style</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {styleTags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => setStyleTag(tag)}
-                      style={chipStyle(tag === styleTag)}
-                    >
+                    <button key={tag} onClick={() => setStyleTag(tag)} style={chipStyle(tag === styleTag)}>
                       {tag}
                     </button>
                   ))}
@@ -393,11 +410,7 @@ export default function UploadPage() {
                 <div style={{ fontSize: 14, marginBottom: 10 }}>出片场景 Scene</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {sceneTags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => setSceneTag(tag)}
-                      style={chipStyle(tag === sceneTag)}
-                    >
+                    <button key={tag} onClick={() => setSceneTag(tag)} style={chipStyle(tag === sceneTag)}>
                       {tag}
                     </button>
                   ))}
@@ -408,11 +421,7 @@ export default function UploadPage() {
                 <div style={{ fontSize: 14, marginBottom: 10 }}>季节 Season</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {seasonTags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => setSeasonTag(tag)}
-                      style={chipStyle(tag === seasonTag)}
-                    >
+                    <button key={tag} onClick={() => setSeasonTag(tag)} style={chipStyle(tag === seasonTag)}>
                       {tag}
                     </button>
                   ))}
@@ -429,27 +438,17 @@ export default function UploadPage() {
                 marginBottom: 18,
               }}
             >
-              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>
-                4. 定价
-              </div>
+              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>4. 定价</div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>原价</div>
-                  <input
-                    value={originalPrice}
-                    onChange={(e) => setOriginalPrice(e.target.value)}
-                    style={inputStyle}
-                  />
+                  <input value={originalPrice} onChange={(e) => setOriginalPrice(e.target.value)} style={inputStyle} />
                 </div>
 
                 <div>
                   <div style={{ fontSize: 14, marginBottom: 10 }}>转卖价</div>
-                  <input
-                    value={resalePrice}
-                    onChange={(e) => setResalePrice(e.target.value)}
-                    style={inputStyle}
-                  />
+                  <input value={resalePrice} onChange={(e) => setResalePrice(e.target.value)} style={inputStyle} />
                 </div>
               </div>
             </div>
@@ -462,9 +461,7 @@ export default function UploadPage() {
                 padding: 22,
               }}
             >
-              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>
-                5. 其他信息
-              </div>
+              <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 18 }}>5. 其他信息</div>
 
               <textarea
                 value={description}
@@ -507,7 +504,7 @@ export default function UploadPage() {
                   保存草稿
                 </button>
 
-               <button
+                <button
                   onClick={handleSave}
                   style={{
                     flex: 1.2,
@@ -526,12 +523,7 @@ export default function UploadPage() {
             </div>
           </div>
 
-          <div
-            style={{
-              position: "sticky",
-              top: 108,
-            }}
-          >
+          <div style={{ position: "sticky", top: 108 }}>
             <div
               style={{
                 background: "#F8F5EF",
@@ -541,9 +533,7 @@ export default function UploadPage() {
                 marginBottom: 18,
               }}
             >
-              <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>
-                实时预览
-              </div>
+              <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>实时预览</div>
 
               <div
                 style={{
@@ -557,14 +547,15 @@ export default function UploadPage() {
                   style={{
                     height: 420,
                     borderRadius: 22,
-                    background: "linear-gradient(180deg,#F1E5D6 0%, #F7EBDD 42%, #8DC2D7 72%, #A7DBEA 100%)",
                     marginBottom: 14,
+                    overflow: "hidden",
+                    background: previewImages[0]
+                      ? `url(${previewImages[0]}) center/cover`
+                      : "linear-gradient(180deg,#F1E5D6 0%, #F7EBDD 42%, #8DC2D7 72%, #A7DBEA 100%)",
                   }}
                 />
 
-                <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
-                  {title}
-                </div>
+                <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>{title}</div>
 
                 <div style={{ color: "#6E675F", marginBottom: 14 }}>¥{resalePrice}</div>
 
@@ -614,12 +605,7 @@ export default function UploadPage() {
                   {description}
                 </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 10,
-                  }}
-                >
+                <div style={{ display: "flex", gap: 10 }}>
                   <button
                     style={{
                       flex: 1,
